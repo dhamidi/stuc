@@ -35,6 +35,10 @@
  *    When executing a file, this variable is set to the full path of
  *    that file.
  *
+ *  STUCVERBOSE
+ *
+ *    If this variable is set, `stuc' outputs each path it checks on stderr.
+ *
  * FILES
  *   ${STUCPATH}/
  *   ${PWD}/.${STUCNAME}.d/
