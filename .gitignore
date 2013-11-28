@@ -1,1 +1,3 @@
 /stuc
+/stuc-*
+!/stuc-*.c

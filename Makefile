@@ -1,17 +1,18 @@
 EXECNAME=stuc
+SUBCMDS = $(basename $(wildcard stuc-*.c))
 PREFIX  ?= /usr/local
 EPREFIX ?= $(PREFIX)/bin
+BINARIES =$(EPREFIX)/$(EXECNAME) $(foreach subcmd,$(SUBCMDS),$(EPREFIX)/$(subcmd))
 
-$(EXECNAME):
+#@? create all binaries
+all: $(EXECNAME) $(SUBCMDS)
 
-install: $(EPREFIX)/$(EXECNAME)
+#@? install binaries into ${PREFIX}/bin
+install: $(BINARIES)
 
-$(EPREFIX)/$(EXECNAME): $(EXECNAME)
-	cp $(EXECNAME) $(EPREFIX)/$(EXECNAME)
+$(EPREFIX)/%: %
+	cp $* $(EPREFIX)/$*
 
-test: $(EXECNAME)
-	export STUCPATH=$$PWD
-	[ "$$(./$(EXECNAME) test-data/bar)" = "bar" ]
-	[ "$$(./$(EXECNAME) test-data/now)" = "$$(date)" ]
-
-.ONESHELL: test
+#@? list all targets
+help:
+	@awk -F':' '/^#@?/ {help=substr($$0,5)} /^([a-z]+):/{printf("%10s -- %s\n",$$1,help)}' Makefile
