@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
 
    if (keyname == NULL && argc < 2) {
       usage(argv[0]);
-   } else if (keyname == NULL) {
+   } else if (argc > 1) {
       keyname = argv[1];
    }
 

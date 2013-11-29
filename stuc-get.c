@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
 
    if (key_name == NULL && argc < 2) {
       usage(argv[0]);
-   } else if (key_name == NULL) {
+   } else if (argc > 1) {
       key_name = argv[1];
       setenv("STUCKEY", key_name, 1);
    }
