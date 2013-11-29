@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
       setenv("STUCKEY", key_name, 1);
    }
 
-   key_pipe = popen("stuc-path | stuc-find", "r");
+   key_pipe = popen("stuc-find", "r");
    if (key_pipe == NULL) {
       perror("popen");
       return EXIT_FAILURE;

@@ -46,17 +46,25 @@ int main(int argc, char** argv) {
    char* keyname = getenv("STUCKEY");
    size_t buflen = 0;
    ssize_t readc = 0;
+   FILE*  src = NULL;
 
    if (keyname == NULL && argc < 2) {
       usage(argv[0]);
    } else if (argc > 1) {
       keyname = argv[1];
+      setenv("STUCKEY", keyname, 1);
+   }
+
+   src = popen("stuc-path", "r");
+   if (src == NULL) {
+      perror("popen");
+      return EXIT_SUCCESS;
    }
 
    while ( 1 ) {
-      readc = getline(&filepath, &buflen, stdin);
+      readc = getline(&filepath, &buflen, src);
 
-      if (feof(stdin)) { break; }
+      if (feof(src)) { break; }
 
       if (readc == -1) {
          perror("getline");
@@ -72,6 +80,12 @@ int main(int argc, char** argv) {
       if (file_exists_p(filepath, keyname)) {
          fprintf(stdout, "%s/%s\n", filepath, keyname);
          free(filepath);
+
+         if (pclose(src) == -1) {
+            perror("pclose");
+            return EXIT_FAILURE;
+         }
+
          return EXIT_SUCCESS;
       }
    }
@@ -83,7 +97,7 @@ int main(int argc, char** argv) {
 void usage(const char* self) {
    fprintf(stderr, "Usage: %s [FILE]\n"
            "\n"
-           " %s reads directory path names from stdin and checks, \n"
+           " %s reads directory path names from `stuc-path' and checks, \n"
            " whether FILE exists in any of the named directories.\n"
            "\n"
            " If FILE is not given, the value of the environment variable\n"
