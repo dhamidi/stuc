@@ -14,6 +14,10 @@ clean:
 #@? install binaries into ${PREFIX}/bin
 install: $(BINARIES)
 
+#@? uninstall binaries from ${PREFIX}/bin
+uninstall: $(BINARIES)
+	@rm -v $(BINARIES)
+
 $(EPREFIX)/%: %
 	cp $* $(EPREFIX)/$*
 
