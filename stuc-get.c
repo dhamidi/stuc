@@ -28,6 +28,9 @@ int main(int argc, char** argv) {
 
    readc = getline(&key_file, &key_len, key_pipe);
    if (readc == -1) {
+      if (errno == 0) { /* no input */
+	return EXIT_FAILURE;
+      }
       perror("getline");
       return EXIT_FAILURE;
    }

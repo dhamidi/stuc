@@ -46,6 +46,7 @@ int main(int argc, char** argv) {
    char* keyname = getenv("STUCKEY");
    size_t buflen = 0;
    ssize_t readc = 0;
+   int error = 0;
    FILE*  src = NULL;
 
    if (keyname == NULL && argc < 2) {
@@ -63,11 +64,13 @@ int main(int argc, char** argv) {
 
    while ( 1 ) {
       readc = getline(&filepath, &buflen, src);
+      error = errno;
 
       if (feof(src)) { break; }
 
-      if (readc == -1) {
-         perror("getline");
+      if (readc == -1 && error != 0) {
+         errno = error;
+	 perror("getline");
          exit(EXIT_FAILURE);
       }
 
