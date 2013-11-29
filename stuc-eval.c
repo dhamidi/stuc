@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
 
    unsetenv("STUCEXEC");
    setenv("STUCEXEC", argv[1], 1);
-   execlp(argv[1], NULL);
+   execlp(argv[1], argv[1], NULL);
 
    fp = fopen(argv[1], "r");
    if (fp == NULL) {
