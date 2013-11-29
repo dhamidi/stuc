@@ -7,6 +7,10 @@ BINARIES =$(EPREFIX)/$(EXECNAME) $(foreach subcmd,$(SUBCMDS),$(EPREFIX)/$(subcmd
 #@? create all binaries
 all: $(EXECNAME) $(SUBCMDS)
 
+#@? remove all binaries from the current directory
+clean:
+	@rm -v $(addprefix ./,$(EXECNAME)) $(addprefix ./,$(SUBCMDS))
+
 #@? install binaries into ${PREFIX}/bin
 install: $(BINARIES)
 
