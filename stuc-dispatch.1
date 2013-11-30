@@ -1,0 +1,33 @@
+.\" Copyright (C), 2013  Dario Hamidi
+.\" You may distribute this file under the terms of the GNU Free
+.\" Documentation License.
+.TH stuc-dispatch 1 2013-11-30
+.SH NAME
+stuc-dispatch \- find and execute sub commands
+.SH SYNOPSIS
+.SY stuc-dispatch
+<command>
+[arguments...]
+.YS
+.SH DESCRIPTION
+\fBstuc-dispatch\fR tries to execute an executable named
+\fIstuc-<command>\fR, passing \fIarguments\fR to it.
+.PP
+Dashes in <command> carry special meaning.  If executing
+\fIstuc-<command>\fR failed, everything from the end of <command> up to
+the last dash in <command> is stripped from the command name and another
+attempt is made to execute the now modified command.
+.PP
+For example,
+.EX
+$ stuc-dispatch eval-json file
+.EE
+.PP
+Would first try to execute \fIstuc-eval-json file\fR and then
+\fIstuc-eval file\fR.
+.SH OPTIONS
+None.
+.SH "SEE ALSO"
+\fIstuc-eval\fR(1)
+.SH AUTHOR
+Dario Hamidi <dario.hamidi@xing.com>

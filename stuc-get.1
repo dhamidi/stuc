@@ -1,0 +1,24 @@
+.\" Copyright (C), 2013  Dario Hamidi
+.\" You may distribute this file under the terms of the GNU Free
+.\" Documentation License.
+.TH stuc-get 1 2013-11-30
+.SH NAME
+stuc-get \- query a configuration setting
+.SH SYNOPSIS
+.SY stuc-get
+<key>
+.YS
+.SH DESCRIPTION
+Queries the value of <key> and outputs the value on stdout.
+.PP
+<key> has to be a valid relative path.  The file to operate on is
+determined by reading the output of the \fBstuc-find\fR(1) command.  The
+resulting file name is then dispatched (see \fBstuc-dispatch\fR(1)) to
+\fIeval-EXTENSION\fR, where \fIEXTENSION\fR is the extension of that file, or
+\fIeval\fR if that file has no extension.
+.SH OPTIONS
+None.
+.SH "SEE ALSO"
+\fBstuc-find\fR(1), \fBstuc-eval\fR(1)
+.SH AUTHOR
+Dario Hamidi <dario.hamidi@dario.com>

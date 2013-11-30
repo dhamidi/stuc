@@ -1,0 +1,30 @@
+.\" Copyright (C), 2013  Dario Hamidi
+.\" You may distribute this file under the terms of the GNU Free
+.\" Documentation License.
+.TH stuc-path 1 2013-11-30
+.SH NAME
+stuc-path \- output search path for configuration settings
+.SH SYNOPSIS
+.SY stuc-path
+.YS
+.SH DESCRIPTION
+\fBstuc-path\fR writes the list of search locations for \fBstuc\fR(1) to
+stdout.  Each line is the name of a directory that can hold
+configuration settings.  File names are written based on priority of
+that location (highest priority first).
+.SH OPTIONS
+None.
+.SH "ENVIRONMENT VARIABLES"
+.PP
+.I STUCPATH
+.RS 4
+If this variable is set, its value is written before any other
+locations.  Colons in the value are converted to newlines.
+.PP
+This variable is used to point \fBstuc\fR(1) to other directories,
+allowing settings to be overridden.
+.RE
+.SH "SEE ALSO"
+\fBstuc\fR(1).
+.SH AUTHOR
+Dario Hamidi <dario.hamidi@xing.com>

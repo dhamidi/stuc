@@ -1,0 +1,20 @@
+.\" Copyright (C), 2013  Dario Hamidi
+.\" You may distribute this file under the terms of the GNU Free
+.\" Documentation License.
+.TH stuc-find 1 2013-11-30
+.SH NAME
+stuc-find \- locate a configuration file
+.SH SYNOPSIS
+.SY stuc-find
+<key>
+.YS
+.SH DESCRIPTION
+\fBstuc-find\fR(1) looks for a file named <key> in the directories
+output by \fBstuc-path\fR(1).  If a file is found, the concatenation of
+the output of \fBstuc-path\fR(1) and <key> is written to stdout.
+.SH OPTIONS
+None.
+.SH "SEE ALSO"
+\fBstuc-get\fR(1), \fBstuc-path\fR(1)
+.SH AUTHOR
+Dario Hamidi <dario.hamidi@xing.com>
