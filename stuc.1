@@ -1,0 +1,109 @@
+.\" Copyright (C), 2013  Dario Hamidi
+.\" You may distribute this file under the terms of the GNU Free
+.\" Documentation License.
+.TH stuc 1 2013-11-30
+.SH NAME
+stuc \- stupid configuration manager
+.SH SYNOPSIS
+.SY stuc
+<command>
+[arguments...]
+.YS
+.SH DESCRIPTION
+\fBstuc\fR manages configuration settings.  Its purpose is to have a
+single, universal interface for reading configuration settings.
+.PP
+Software configuration is usually stored in some kind of hierarchical
+data structure, encoded as plain text file.  Various encodings exist
+and are used for this (e.g. `ini' files, `yaml', `json').  Working
+with any of these files requires decoding the text file back into a
+hierarchical data structure that the processing program understands.
+The programming libraries for this vary in their semantics, robustness
+and availability for different programming languages.
+.PP
+The type of data that can be encoded is also limited, depending on the
+encoding.  Some encodings (or implementations of such) support
+substituting environment variables, including other files or other
+means of aggregating data from other sources.
+.PP
+The filesystem already provides a hierarchical data store and requires
+no special tools beyond read/write access to files.  Executable files
+allow for dynamic query/generation of values.
+.PP
+\fBstuc\fR provides an interface for querying configuration settings in a
+structured manner.
+.SH OPTIONS
+None
+.SH "STUC COMMANDS"
+.B stuc
+is the main program that dispatches and executes sub commands.
+.SS "Main sub commands"
+.PP
+\fBstuc-get\fR(1)
+.RS 4
+Query a setting.\&
+.RE
+.PP
+\fBstuc-find\fR(1)
+.RS 4
+Locate the file holding the value for a setting.\&
+.RE
+.PP
+\fBstuc-path\fR(1)
+.RS 4
+List paths that are searched for settings.\&
+.RE
+.PP
+\fBstuc-eval\fR(1)
+.RS 4
+Retrieve a setting from a file.\&
+.RE
+.PP
+\fBstuc-dispatch\fR(1)
+.RS 4
+Find and execute a sub command.
+.RE
+.SH "ENVIRONMENT VARIABLES"
+.PP
+.I STUCPATH
+.RS 4
+If set to a colon separated list of directory names, these directories
+are searched first when querying a setting.
+.RE
+.PP
+.I STUCEXEC
+.RS 4
+This environment variable is set when \fBstuc-eval\fR(1) executes
+another program.  Programs can use this variable to check whether they
+have been invoked by \fBstuc-eval\fR(1).
+.RE
+.PP
+.I STUCKEY
+.RS 4
+This variable is set to the current key being queried.
+.RE
+.SH FILES
+.PP
+To \fBstuc\fR configuration settings are files relative to the
+directories listed by \fBstuc-path\fR(1).
+.PP
+.I /etc/stuc.d
+.RS 4
+The global configuration directory.
+.RE
+.PP
+.I $HOME/.stuc.d
+.RS 4
+The user's configuration directory.
+.RE
+.PP
+.I $PWD/.stuc.d
+.RS 4
+Configuration settings pertaining to the files in the current directory
+are expected in this directory.
+.RE
+.SH "SEE ALSO"
+\fBstuc-get\fR(1), \fBstuc-find\fR(1), \fBstuc-eval\fR(1),
+\fBstuc-path\fR(1)
+.SH AUTHOR
+Dario Hamidi <dario.hamidi@gmail.com>
