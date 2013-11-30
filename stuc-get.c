@@ -3,13 +3,17 @@
 #include <stdio.h>
 #include <errno.h>
 #include <unistd.h>
+#include <string.h>
 
 void usage(const char* self);
+const char* findext(const char* filename);
 
 int main(int argc, char** argv) {
    char* key_file = NULL;
    char* key_name = getenv("STUCKEY");
    FILE* key_pipe = NULL;
+   char cmd_buf[1024] = { 0 };
+   const char* cmd_ext = NULL;
    size_t key_len = 0;
    ssize_t readc = 0;
 
@@ -41,10 +45,29 @@ int main(int argc, char** argv) {
       return EXIT_FAILURE;
    }
 
-   execlp("stuc-eval", "stuc-eval", key_file, NULL);
+   cmd_ext = findext(key_file);
+   if (cmd_ext) {
+      snprintf(cmd_buf, 1023, "eval-%s", cmd_ext);
+   } else {
+      strncpy(cmd_buf, "eval", 1023);
+   }
+
+   execlp("stuc-dispatch", "stuc-dispatch", cmd_buf, key_file, NULL);
    perror("execlp");
 
    return EXIT_FAILURE;
+}
+
+const char* findext(const char* filename) {
+   size_t i = strlen(filename);
+   const char*  result = filename + i;
+
+   while (i --> 0) {
+      if (filename[i] == '.') { return result; }
+      result--;
+   }
+
+   return NULL;
 }
 
 void usage(const char* self) {
