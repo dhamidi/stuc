@@ -1,7 +1,7 @@
 .POSIX:
 
 PROGRAMS=stuc stuc-dispatch stuc-eval stuc-find stuc-get stuc-path
-MANPAGES=stuc.1
+MANPAGES=stuc.1 stuc-dispatch.1 stuc-eval.1 stuc-find.1 stuc-get.1 stuc-path.1
 include config.mk
 
 all: $(PROGRAMS)
