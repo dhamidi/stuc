@@ -1,26 +1,15 @@
-EXECNAME=stuc
-SUBCMDS = $(basename $(wildcard stuc-*.c))
-PREFIX  ?= /usr/local
-EPREFIX ?= $(PREFIX)/bin
-BINARIES =$(EPREFIX)/$(EXECNAME) $(foreach subcmd,$(SUBCMDS),$(EPREFIX)/$(subcmd))
+.POSIX:
 
-#@? create all binaries
-all: $(EXECNAME) $(SUBCMDS)
+PROGRAMS=stuc stuc-dispatch stuc-eval stuc-find stuc-get stuc-path
 
-#@? remove all binaries from the current directory
+include config.mk
+
+all: $(PROGRAMS)
+
 clean:
-	@rm -v $(addprefix ./,$(EXECNAME)) $(addprefix ./,$(SUBCMDS))
+	-cd ${PWD}; rm -v ${PROGRAMS}
 
-#@? install binaries into ${PREFIX}/bin
-install: $(BINARIES)
+install: install-bin install-man
 
-#@? uninstall binaries from ${PREFIX}/bin
-uninstall: $(BINARIES)
-	@rm -v $(BINARIES)
-
-$(EPREFIX)/%: %
-	cp $* $(EPREFIX)/$*
-
-#@? list all targets
-help:
-	@awk -F':' '/^#@?/ {help=substr($$0,5)} /^([a-z]+):/{printf("%10s -- %s\n",$$1,help)}' Makefile
+install-bin:
+	@for program in ${PROGRAMS}; do cp -v ./$$program ${BINPREFIX}/; done

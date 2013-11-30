@@ -1,0 +1,3 @@
+PREFIX=/usr/local
+MANPREFIX=${PREFIX}/man
+BINPREFIX=${PREFIX}/bin
